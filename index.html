@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MBR 膜生物反應器互動教學</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">化工裝置第18章</p>
+          <h1>MBR 膜生物反應器互動教學</h1>
+        </div>
+        <div class="status-box" aria-live="polite">
+          <span>目前操作狀態</span>
+          <strong id="systemStatus">穩定運轉</strong>
+        </div>
+      </header>
+
+      <section class="layout">
+        <aside class="lesson-panel" aria-label="教學步驟">
+          <div class="panel-heading">
+            <span class="section-label">Lesson</span>
+            <h2>處理流程</h2>
+          </div>
+          <ol class="lesson-list" id="lessonList">
+            <li class="active" data-step="0">
+              <button type="button">
+                <span>1</span>
+                <strong>廢水進入調節池</strong>
+              </button>
+            </li>
+            <li data-step="1">
+              <button type="button">
+                <span>2</span>
+                <strong>格柵去除大型固體</strong>
+              </button>
+            </li>
+            <li data-step="2">
+              <button type="button">
+                <span>3</span>
+                <strong>初沉降低懸浮物</strong>
+              </button>
+            </li>
+            <li data-step="3">
+              <button type="button">
+                <span>4</span>
+                <strong>MBR 生物降解與膜分離</strong>
+              </button>
+            </li>
+            <li data-step="4">
+              <button type="button">
+                <span>5</span>
+                <strong>抽吸泵產出淨水</strong>
+              </button>
+            </li>
+            <li data-step="5">
+              <button type="button">
+                <span>6</span>
+                <strong>剩餘污泥進入儲池</strong>
+              </button>
+            </li>
+          </ol>
+
+          <div class="explain-card">
+            <h3 id="lessonTitle">廢水進入調節池</h3>
+            <p id="lessonText">
+              調節池用來均化水量與污染濃度，讓後續生物處理不會因瞬間負荷過高而失穩。
+            </p>
+          </div>
+        </aside>
+
+        <section class="workspace" aria-label="MBR 互動圖解">
+          <div class="tabs" role="tablist" aria-label="圖解模式">
+            <button class="active" id="plantTab" type="button" role="tab" aria-selected="true">流程總覽</button>
+            <button id="tankTab" type="button" role="tab" aria-selected="false">MBR 池剖面</button>
+          </div>
+
+          <div class="diagram-stage">
+            <svg id="plantDiagram" viewBox="0 0 1120 560" role="img" aria-labelledby="plantTitle plantDesc">
+              <title id="plantTitle">MBR 廢水處理流程總覽</title>
+              <desc id="plantDesc">從調節池、格柵、初沉池、MBR 池，到淨水與污泥儲池的流程圖。</desc>
+              <defs>
+                <linearGradient id="tankWater" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#9bd7ec" stop-opacity="0.78" />
+                  <stop offset="100%" stop-color="#5aa6bb" stop-opacity="0.82" />
+                </linearGradient>
+                <linearGradient id="sludgeFill" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#9d7b4d" />
+                  <stop offset="100%" stop-color="#63472b" />
+                </linearGradient>
+                <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto">
+                  <path d="M0,0 L0,6 L8,3 z" fill="#1087d4" />
+                </marker>
+                <marker id="arrowBrown" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto">
+                  <path d="M0,0 L0,6 L8,3 z" fill="#a64d1b" />
+                </marker>
+                <marker id="blackArrow" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto">
+                  <path d="M0,0 L0,6 L8,3 z" fill="#1e252a" />
+                </marker>
+              </defs>
+
+              <g class="pipe wastewater" data-part="pipe" tabindex="0" role="button" aria-label="廢水入流管線">
+                <path class="flow-path" d="M80 168 L80 92 L260 92 L260 236 L300 236" />
+                <path class="moving-dot" d="M80 168 L80 92 L260 92 L260 236 L300 236" />
+                <text x="48" y="82">廢水入流</text>
+              </g>
+
+              <g class="unit clickable" data-part="equalization" tabindex="0" role="button" aria-label="調節池">
+                <rect x="32" y="248" width="165" height="168" class="tank-glass" />
+                <rect x="48" y="326" width="133" height="74" fill="url(#sludgeFill)" opacity="0.8" />
+                <text x="66" y="306">廢水</text>
+                <text x="50" y="452">調節池</text>
+              </g>
+
+              <g class="unit clickable" data-part="screen" tabindex="0" role="button" aria-label="格柵">
+                <rect x="280" y="202" width="144" height="188" class="tank-glass" />
+                <rect x="300" y="170" width="78" height="150" fill="#c8d6dc" stroke="#3f4b51" stroke-width="2" />
+                <path class="screen-through-flow" d="M300 236 L378 236" />
+                <g class="screen-bars">
+                  <line x1="310" y1="178" x2="285" y2="318" />
+                  <line x1="326" y1="178" x2="301" y2="318" />
+                  <line x1="342" y1="178" x2="317" y2="318" />
+                  <line x1="358" y1="178" x2="333" y2="318" />
+                </g>
+                <path class="branch" d="M270 112 C318 112 330 112 372 110" />
+                <text x="285" y="72">格柵</text>
+                <text x="280" y="452">初步攔污</text>
+              </g>
+
+              <g class="pipe brown" data-part="pipe" tabindex="0" role="button" aria-label="初沉池進流管線">
+                <path class="flow-path" d="M378 236 L520 236 L520 260" />
+                <path class="moving-dot" d="M378 236 L520 236 L520 260" />
+              </g>
+
+              <g class="unit clickable" data-part="primary" tabindex="0" role="button" aria-label="初沉池">
+                <rect x="455" y="242" width="164" height="160" class="tank-glass" />
+                <path d="M470 314 C512 300 554 328 604 306 L604 386 L470 386 Z" fill="url(#tankWater)" />
+                <path d="M470 386 L604 386 L604 402 L470 402 Z" fill="url(#sludgeFill)" opacity="0.72" />
+                <text x="470" y="452">初沉池</text>
+              </g>
+
+              <g class="pipe brown" data-part="pipe" tabindex="0" role="button" aria-label="MBR 進流管線">
+                <path class="flow-path" d="M604 322 L692 322" />
+                <path class="moving-dot" d="M604 322 L692 322" />
+              </g>
+
+              <g class="unit clickable" data-part="mbr" tabindex="0" role="button" aria-label="MBR 池">
+                <rect x="690" y="220" width="260" height="190" class="mbr-box" />
+                <rect x="704" y="284" width="232" height="96" fill="url(#tankWater)" />
+                <g class="membranes">
+                  <rect x="764" y="240" width="12" height="150" />
+                  <rect x="796" y="240" width="12" height="150" />
+                  <rect x="828" y="240" width="12" height="150" />
+                  <rect x="860" y="240" width="12" height="150" />
+                </g>
+                <g id="plantBubbles"></g>
+                <text x="755" y="452">MBR 池</text>
+              </g>
+
+              <g class="pipe clean" data-part="pipe" tabindex="0" role="button" aria-label="產水管線">
+                <path class="flow-path" d="M820 240 L820 120 L1060 120" />
+                <path class="moving-dot" d="M820 240 L820 120 L1060 120" />
+                <text x="1030" y="80">產水</text>
+              </g>
+
+              <g class="pipe sludge-pipe" data-part="pipe" tabindex="0" role="button" aria-label="污泥排放管線">
+                <path class="flow-path" d="M936 322 L1010 322 L1010 420" />
+                <path class="moving-dot" d="M936 322 L1010 322 L1010 420" />
+              </g>
+
+              <g class="unit clickable" data-part="sludge" tabindex="0" role="button" aria-label="污泥儲池">
+                <rect x="960" y="388" width="132" height="82" class="tank-glass" />
+                <rect x="974" y="428" width="104" height="30" fill="url(#sludgeFill)" />
+                <text x="930" y="512">污泥儲池</text>
+              </g>
+            </svg>
+
+            <svg id="tankDiagram" class="hidden" viewBox="0 0 1120 560" role="img" aria-labelledby="tankTitle tankDesc">
+              <title id="tankTitle">MBR 池剖面互動圖</title>
+              <desc id="tankDesc">MBR 池內含膜分離管、曝氣、抽吸泵與淨水出口。</desc>
+              <defs>
+                <marker id="blackArrowTank" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto">
+                  <path d="M0,0 L0,6 L8,3 z" fill="#1e252a" />
+                </marker>
+              </defs>
+              <g class="unit clickable" data-part="mbr" tabindex="0" role="button" aria-label="MBR 池槽">
+                <rect x="250" y="100" width="382" height="372" class="hitbox" />
+                <rect x="260" y="110" width="360" height="350" class="tank-glass strong" />
+                <path id="waterLevel" d="M290 156 C322 146 350 166 382 156 C414 146 442 166 474 156 C506 146 536 166 590 156 L590 430 L290 430 Z" fill="url(#tankWater)" />
+                <path d="M290 156 C322 146 350 166 382 156 C414 146 442 166 474 156 C506 146 536 166 590 156" class="surface" />
+              </g>
+
+              <g class="clickable" data-part="membrane" tabindex="0" role="button" aria-label="膜分離管">
+                <rect x="34" y="220" width="540" height="222" class="hitbox" />
+                <g class="membrane-rack">
+                  <rect x="350" y="232" width="26" height="176" />
+                  <rect x="402" y="232" width="26" height="176" />
+                  <rect x="454" y="232" width="26" height="176" />
+                  <rect x="506" y="232" width="26" height="176" />
+                </g>
+                <line x1="322" y1="430" x2="565" y2="430" class="diffuser" />
+                <text x="42" y="324">膜分離管</text>
+                <path class="label-line" d="M164 314 L350 300" />
+              </g>
+
+              <g class="clickable" data-part="blower" tabindex="0" role="button" aria-label="鼓風機與曝氣">
+                <rect x="560" y="400" width="218" height="124" class="hitbox" />
+                <circle cx="705" cy="438" r="29" class="machine" />
+                <circle cx="752" cy="458" r="18" class="machine small" />
+                <path d="M676 438 L565 438" class="air-line" />
+                <text x="682" y="510">鼓風機</text>
+              </g>
+
+              <g class="clickable" data-part="pump" tabindex="0" role="button" aria-label="抽吸泵與淨水出口">
+                <rect x="582" y="144" width="468" height="286" class="hitbox" />
+                <circle cx="870" cy="330" r="32" class="machine" />
+                <circle cx="870" cy="330" r="10" fill="#8d979d" />
+                <path d="M590 156 L820 156 L820 330 L838 330" class="pipe-line" />
+                <path d="M902 330 L1012 330" class="pipe-line outlet" />
+                <text x="820" y="414">抽吸泵</text>
+                <text x="1022" y="334" class="clean-label">淨水</text>
+              </g>
+
+              <g class="clickable" data-part="influent" tabindex="0" role="button" aria-label="廢水入口">
+                <rect x="54" y="70" width="150" height="92" class="hitbox" />
+                <path d="M90 92 L185 92 L185 146" class="pipe-line inlet" />
+                <text x="70" y="96" class="water-label">廢水</text>
+              </g>
+
+              <g id="bubbles"></g>
+              <g id="biofilm"></g>
+              <g id="permeateFlow"></g>
+              <text x="70" y="386">空氣泡</text>
+              <path class="label-line" d="M166 376 L360 418" />
+            </svg>
+          </div>
+
+          <div class="controls" aria-label="模擬控制">
+            <label>
+              曝氣強度
+              <span id="airValue">60%</span>
+              <input id="airControl" type="range" min="20" max="100" value="60" />
+            </label>
+            <label>
+              進流水負荷
+              <span id="loadValue">中</span>
+              <input id="loadControl" type="range" min="1" max="5" value="3" />
+            </label>
+            <label>
+              膜通量
+              <span id="fluxValue">55 LMH</span>
+              <input id="fluxControl" type="range" min="25" max="90" value="55" />
+            </label>
+            <button id="toggleRun" type="button" aria-pressed="true">暫停動畫</button>
+          </div>
+        </section>
+
+        <aside class="info-panel" aria-label="設備說明">
+          <div class="panel-heading">
+            <span class="section-label">Inspect</span>
+            <h2 id="partTitle">調節池</h2>
+          </div>
+          <p id="partText">
+            用來緩衝水量與水質波動，避免污染負荷突然升高造成生物系統失衡。
+          </p>
+          <dl class="metric-grid">
+            <div>
+              <dt>COD 去除預估</dt>
+              <dd id="codValue">86%</dd>
+            </div>
+            <div>
+              <dt>膜污染風險</dt>
+              <dd id="riskValue">中</dd>
+            </div>
+          </dl>
+          <div class="quiz-card">
+            <h3>快速檢核</h3>
+            <p>MBR 與傳統活性污泥法相比，最核心的差異是什麼？</p>
+            <div class="quiz-options">
+              <button type="button" data-correct="false">只依靠沉澱池分離污泥</button>
+              <button type="button" data-correct="true">以膜分離取代或強化固液分離</button>
+              <button type="button" data-correct="false">完全不需要微生物分解有機物</button>
+            </div>
+            <p id="quizFeedback" class="feedback" aria-live="polite"></p>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
